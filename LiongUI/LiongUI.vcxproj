@@ -55,6 +55,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/D "LiongUI_Export" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>P:\OpenGLiong\OpenGLiong;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -81,11 +82,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Entrance.h" />
     <ClInclude Include="IClickable.h" />
-    <ClInclude Include="LiongUIAPI.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Preprocess.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LiongGL\LiongGL.vcxproj">
+      <Project>{f288e772-5dc2-43af-9fba-9f7a92c095af}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,10 +1,14 @@
 #pragma once
-#include "LiongUIAPI.h"
+#include "Preprocess.h"
+#include "LiongGL\Entrance.h"
+
+using namespace LiongStudio::GL;
 
 _LUI_BEGIN
-__interface IClickable
-{
-	bool IsPointOn(POINT point);
-	void OnClick();
+interface IClickable
+{	
+public:
+	virtual bool CheckClick(SIZE window, POINT point) = 0;
+	virtual void ClickEventHandler(POINT point) = 0;
 };
 _LUI_END

@@ -11,7 +11,6 @@ void WAV::InitHeader()
 	DWORD tag;
 	offset = 12;
 
-
 	pStream->read((char *)&header, sizeof(RIFFWaveHeaderChunk));
 	if (header.RIFF != 0x46464952 || header.WAVE != 0x45564157) // 'RIFF' 'WAVE'
 		return;

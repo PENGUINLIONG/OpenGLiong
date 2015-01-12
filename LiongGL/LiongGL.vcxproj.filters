@@ -18,13 +18,16 @@
     <ClInclude Include="Texture.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="LiongGLAPI.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="GLToolkit.h">
+    <ClInclude Include="IRenderable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Entrance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Preprocess.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -33,9 +36,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GLToolkit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

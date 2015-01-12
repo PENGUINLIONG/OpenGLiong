@@ -57,6 +57,8 @@
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
       <CompileAsWinRT>false</CompileAsWinRT>
       <ExceptionHandling>Async</ExceptionHandling>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>P:\OpenGLiong\OpenGLiong;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -82,13 +84,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GLToolkit.h" />
-    <ClInclude Include="LiongGLAPI.h" />
+    <ClInclude Include="Entrance.h" />
+    <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="Preprocess.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GLToolkit.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>

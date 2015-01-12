@@ -1,16 +1,23 @@
 #pragma once
-#include "LiongGLAPI.h"
+#include "Preprocess.h"
 
 _LGL_BEGIN
-typedef struct {
-	uint textureID;
-	uint textureIndex;
-} TextureDictionary;
-
 class _GL_ Texture
 {
 public:
-	//Sign up for a opengl texture index.
-	static uint Bind2dTexture(int width, int height, char* data, int length);
+	bool Informative = false;
+	int DataLength;
+	unsigned char *Data = nullptr;
+	GLuint Index;
+	SIZE Size;
+	WORD PixelFormat, ByteSize;
+
+	Texture();
+	Texture(GLuint textureIndex);
+	int GetPixelLength();
+	void Generate();
+	~Texture();
+private:
+	bool available = false;
 };
 _LGL_END

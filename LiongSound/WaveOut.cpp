@@ -15,17 +15,28 @@ void WaveOut::Init(PCMFormat fmt)
 	waveFormatEx.nBlockAlign = fmt.BlockAlign;
 	waveFormatEx.wBitsPerSample = fmt.BitsPerSample;
 
-	waveOutOpen(&hWaveOut, WAVE_MAPPED, &waveFormatEx, (DWORD_PTR)Callback, (DWORD_PTR)this, CALLBACK_FUNCTION);
+	waveOutOpen(&hWaveOut, WAVE_MAPPER, &waveFormatEx, (DWORD_PTR)Callback, (DWORD_PTR)this, CALLBACK_FUNCTION);
 }
 
-void WaveOut::Write(char *buffer, unsigned int bufferLength, PCMFormat fmt)
+void WaveOut::Write(char *buffer, unsigned int bufferLength, PCMFormat fmt, bool loop)
 {
 	Init(fmt);
 	if (playing)
 		Reset();
 	waveHDR.lpData = buffer;
 	waveHDR.dwBufferLength = bufferLength;
-	waveHDR.dwFlags = waveHDR.dwLoops = 0;
+	waveHDR.dwFlags = 0;
+	waveOutPrepareHeader(hWaveOut, &waveHDR, sizeof(WAVEHDR));
+	waveOutWrite(hWaveOut, &waveHDR, sizeof(WAVEHDR));
+	playing = true;
+	this->loop = loop;
+}
+void WaveOut::Write(char *buffer, unsigned int bufferLength, PCMFormat fmt)
+{
+	Write(buffer, bufferLength, fmt, true);
+}
+void WaveOut::Write()
+{
 	waveOutPrepareHeader(hWaveOut, &waveHDR, sizeof(WAVEHDR));
 	waveOutWrite(hWaveOut, &waveHDR, sizeof(WAVEHDR));
 	playing = true;
@@ -33,10 +44,10 @@ void WaveOut::Write(char *buffer, unsigned int bufferLength, PCMFormat fmt)
 
 void WaveOut::Reset()
 {
+	playing = false;
 	waveOutReset(hWaveOut);
 	waveOutBreakLoop(hWaveOut);
 	waveOutUnprepareHeader(hWaveOut, &waveHDR, sizeof(WAVEHDR));
-	playing = false;
 }
 
 void WaveOut::Pause()
@@ -45,12 +56,17 @@ void WaveOut::Pause()
 	playing = false;
 }
 
+void WaveOut::Restart()
+{
+	waveOutRestart(hWaveOut);
+	playing = true;
+}
+
 void WaveOut::Callback(HWAVEOUT hWaveOut, UINT uMsg, DWORD dwInstance, DWORD dwParam1, DWORD dwParam2)
 {
-	//if (uMsg != WOM_DONE)
-		//return;
-	//WaveOut instance = *(WaveOut *)dwInstance;
-	//instance.Reset();
+	WaveOut *instance = (WaveOut *)dwInstance;
+	if (uMsg == WOM_DONE && instance->playing && instance->loop)
+		instance->Write();
 }
 
 WaveOut::~WaveOut()

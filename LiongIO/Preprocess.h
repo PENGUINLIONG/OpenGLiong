@@ -1,9 +1,7 @@
-//defined: /doc /LD /EHa
-
 #pragma once
 #include <windows.h>
 #include <fstream>
-#include "LiongGL\Texture.h"
+#include "CommonDeclear.h"
 
 #pragma comment(lib, "LiongGL.lib")
 

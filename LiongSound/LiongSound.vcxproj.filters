@@ -15,13 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LiongSoundAPI.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="WaveOut.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="WindowsAudioSession.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Preprocess.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Entrance.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

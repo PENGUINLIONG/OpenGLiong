@@ -1,9 +1,8 @@
-//defined: /doc /LD /EHa
-
 #pragma once
 #include <windows.h>
 #include <gl\GL.h>
 #include <gl\GLU.h>
+#include "CommonDeclear.h"
 
 //#pragma comment (lib, "winmm.lib")
 #pragma comment (lib, "opengl32.lib")
@@ -22,23 +21,21 @@ using namespace std;
 #define _LGL_BEGIN		namespace LiongStudio { namespace GL {
 #define _LGL_END		} }
 
-typedef unsigned int	uint;
-
 _LGL_BEGIN
 typedef struct {
-	double Width;
-	double Height;
-} Size;
+	double width;
+	double height;
+} SIZED;
 
 typedef struct {
-	double X;
-	double Y;
-} Position;
+	double x;
+	double y;
+} POINTD;
 
 typedef struct {
-	double Left;
-	double Top;
-	double Right;
-	double Bottom;
-} Rectangle;
+	double left;
+	double top;
+	double right;
+	double bottom;
+} RECTD;
 _LGL_END

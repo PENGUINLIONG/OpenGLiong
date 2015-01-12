@@ -6,53 +6,71 @@ using System.Text.RegularExpressions;
 
 namespace LiongStudio.Script
 {
-    class Script
+    public class Script
     {
-        private string objectID;
-        private string version;
-        private ArrayList lines;
-        private StreamReader stream;
-        private ScriptTranslater translater;
+		string script;
+		StringReader reader;
+		Dictionary<string, byte> roleDict = new Dictionary<string, byte>();
+		string focus = "";
 
-        Script(string path)
+        public Script(string path)
         {
-            if (File.Exists(path))
-                stream = new StreamReader(path);
-            else
-                throw new FileNotFoundException();
-            lines = new ArrayList();
-            try
-            {
-                InitHeader();
-            }
-            catch (BadScriptFormatException e)
-            {
-                Console.WriteLine("An exception has been occured: " + e.Message);
-            }
+			StreamReader sr = new StreamReader(path);
+			this.script = sr.ReadToEnd();
+			reader = new StringReader(this.script);
         }
+        public Script(Stream stream)
+		{
+			StreamReader sr = new StreamReader(stream);
+			this.script = sr.ReadToEnd();
+			reader = new StringReader(this.script);
+		}
+		public Script(string script, StringReader sr)
+		{
+			this.script = script;
+			reader = sr;
+		}
 
-        private void InitHeader()
-        {
-            if (stream.ReadLine() != "GaLS")
-                throw new BadScriptFormatException("Not GaLiong Script file at all.");
-            string temp;
-            temp = stream.ReadLine();
-            Match match = (new Regex(@"Version\s*=\s*(?<version>\S+)?\s*\|\s*Object\s*=\s*(?<object>\S+)?")).Match(temp);
-            version = match.Result("${version}");
-            objectID = match.Result("${object}");
-            if (version == "" || objectID == "")
-                throw new BadScriptFormatException("No Version and(or) ObjectID.");
-        }
+		public void NextDialog()
+		{
+			string line = reader.ReadLine();
+			Match match;
 
-        void ReadScript()
-        {
-            foreach(string line in stream.ReadToEnd().Split('\n'))
-            {
-                foreach (Match match in new Regex(@"\S+").Matches(line))
-                {
-                    
-                }
-            }
-        }
-    }
+			match= new Regex(@"(?<char>\S+)?\s*:", RegexOptions.Compiled).Match(line);
+			if (match.Success)
+			{
+				focus = match.Groups["char"].Value;
+				return;
+			}
+
+			match = new Regex(@"at\s*(\s*(?<x>[0-9]+)?%\s*,\s*(?<y>[0-9]+)?%\s*)", RegexOptions.Compiled).Match(line);
+			if (match.Success)
+			{
+				InteropController.Position position;
+				position.X = Convert.ToDouble(match.Groups["x"].Value);
+				position.Y = Convert.ToDouble(match.Groups["y"].Value);
+				InteropController.InteropController.SetPosition(position);
+				return;
+			}
+
+			match = new Regex(@"oF\s*(\s*(?<width>[0-9]+)?%\s*,\s*(?<height>[0-9]+)?%\s*)", RegexOptions.Compiled).Match(line);
+			if (match.Success)
+			{
+				InteropController.Size size;
+				size.Width = Convert.ToDouble(match.Groups["x"].Value);
+				size.Height = Convert.ToDouble(match.Groups["y"].Value);
+				InteropController.InteropController.SetSize(size);
+				return;
+			}
+
+			match = new Regex(@"[\s*(?<textid>[0-9]+)?\s*]", RegexOptions.Compiled).Match(line);
+			if (match.Success)
+			{
+				InteropController.InteropController.SwitchCharacterImageID(Convert.ToUInt32(match));
+				return;
+			}
+
+			InteropController.InteropController.ChangeLine(line);
+		}
+	}
 }

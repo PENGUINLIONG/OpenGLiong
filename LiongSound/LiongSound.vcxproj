@@ -19,7 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LiongSoundAPI.h" />
+    <ClInclude Include="Entrance.h" />
+    <ClInclude Include="Preprocess.h" />
     <ClInclude Include="WaveOut.h" />
     <ClInclude Include="WindowsAudioSession.h" />
   </ItemGroup>

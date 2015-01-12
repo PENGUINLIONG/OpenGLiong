@@ -1,6 +1,6 @@
 #pragma once
-#include "LiongIOAPI.h"
-#include "LiongSound\WaveOut.h"
+#include "Preprocess.h"
+#include "LiongSound\Entrance.h"
 
 using namespace LiongStudio::Sound;
 

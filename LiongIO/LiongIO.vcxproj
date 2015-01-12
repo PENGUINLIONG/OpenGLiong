@@ -106,10 +106,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMP.h" />
+    <ClInclude Include="Entrance.h" />
     <ClInclude Include="ImageFormat.h" />
     <ClInclude Include="PNG.h" />
     <ClInclude Include="Storage.h" />
-    <ClInclude Include="LiongIOAPI.h" />
+    <ClInclude Include="Preprocess.h" />
     <ClInclude Include="WAV.h" />
   </ItemGroup>
   <ItemGroup>

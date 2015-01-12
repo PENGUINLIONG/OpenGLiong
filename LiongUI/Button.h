@@ -1,19 +1,24 @@
 #pragma once
-#include "LiongGL\LiongGLAPI.h"
-#include "LiongUIAPI.h"
+#include "Preprocess.h"
+#include "Entity.h"
 #include "IClickable.h"
+#include "LiongGL\Entrance.h"
+
+using namespace LiongStudio::GL;
 
 _LUI_BEGIN
-class Button : public IClickable
+class _UI_ Button : public Entity, public IClickable
 {
 public:
-	Button();
-	bool IsPointOn(unsigned int vPoint);
-	void OnClick();
+	Button(Renderer &renderer);
+	bool IClickable::CheckClick(SIZE window, POINT point) override final;
+	void IClickable::ClickEventHandler(POINT point) override final;
+	unsigned int GetTag() override final
+	{
+		return EntityType::IClickable | EntityType::IRenderable;
+	}
 	~Button();
 private:
-	bool available;
-	unsigned int vUpperLeft = 0;
-	unsigned int vLowerRight = 0;
+	bool available = false;
 };
 _LUI_END
